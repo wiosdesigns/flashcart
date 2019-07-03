@@ -102,6 +102,9 @@ a.btn{
 #home,#menu{
   text-align: center;
 }
+#home{
+  padding-top: 40mm;
+}
 #menu a.btn{
   margin: 2mm;
 }
