@@ -1,0 +1,107 @@
+:root{
+  --fg: #1d201f;
+  --theme: #04a777;
+  --bg1: #dee5e5;
+  --bg2: #ffffff;
+  --error: #ef626c;
+}
+* {
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: font1;
+  src: url(/codefiles/assets/hind.ttf);
+}
+@font-face {
+  font-family: icons;
+  src: url(/codefiles/assets/icons.ttf);
+}
+.icon{
+  font-family: icons;
+  display: inline-block;
+}
+body {
+  font-family: font1;
+  padding: 0px;
+  margin: 0px;
+  font-size: 5mm;
+  background: var(--bg1);
+  color: var(--fg);
+  text-align: center;
+}
+header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+header a:first-child{
+  padding: 5mm;
+  text-decoration: none;
+  font-size: 10mm;
+  color: var(--fg);
+}
+header img{
+  height: 10mm;
+  width: auto;
+  margin-right: 2mm;
+}
+header .icon{
+  font-size: 8mm;
+  padding: 5mm;
+  background: var(--fg);
+  color: var(--theme);
+  border-radius: 0 0 0 5mm;
+}
+.hnav{
+  padding: 5mm;
+  padding-bottom: 10vh;
+}
+
+h1,h2,h3{
+  font-weight: normal;
+}
+h1{
+  font-size: 160%;
+}
+h2{
+  font-size: 130%;
+}
+h3{
+  font-size: 110%;
+}
+a.btn{
+  text-decoration: none;
+  display: inline-block;
+  padding: 2mm 8mm;
+  background: var(--theme);
+  color: var(--bg2);
+  border-radius: 10mm;
+}
+#loading{
+  display: block;
+  padding: 40mm 20mm 0mm 20mm;
+  background: var(--bg1);
+  border-radius: 5mm;
+  min-height: 100vh;
+  animation: loadbg 4s infinite;
+}
+@keyframes loadbg{
+  from{background: var(--bg1);}
+  to{background: var(--bg2);}
+}
+#loading>img{
+  height: 20mm;
+  width: auto;
+}
+#app{
+  display: none;
+  background: var(--bg1);
+  width: 100%;
+  max-width: 180mm;
+  text-align: left;
+}
+#home,#menu{
+  text-align: center;
+}
+#menu a.btn{
+  margin: 2mm;
+}

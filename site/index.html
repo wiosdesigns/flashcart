@@ -1,0 +1,54 @@
+<html>
+<head>
+  <title>Flash Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1d201f">
+  <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/png" href="/codefiles/assets/icon.png"/>
+  <link rel="stylesheet" type="text/css" href="/codefiles/css/main.css"/>
+  <script src="/codefiles/js/hnav.js"></script>
+  <script src="/codefiles/js/papaparse.min.js"></script>
+  <script src="/codefiles/js/vue.min.js"></script>
+  <script src="/codefiles/js/main.js"></script>
+</head>
+<body onload="init()">
+<div id="loading">
+  <img src="/codefiles/assets/icon.png"><br>
+  <h2>Loading</h2>
+</div>
+<div id="app">
+  <header>
+    <a href="#home">
+      <img src="/codefiles/assets/logotext.png">
+    </a>
+    <a href="#menu">
+      <span class="icon">m</span>
+    </a>
+  </header>
+  <section id="home" class="hnav" hnav:start>
+    <h1>Setup your online shop in a flash!</h1>
+    <a href="#menu" class="btn">Go Shopping</a>
+  </section>
+  
+  <section id="menu" class="hnav">
+    <h1>Menu</h1>
+    <a class="btn" href="#home">Home Page</a>
+    <a class="btn" href="#checkout">Check Out</a>
+    <br><br>
+    <h2>Shop by categories</h2>
+    <a class="btn" v-for="c in categories" v-bind:href="'#'+encodeURIComponent(c)">
+      {{c}}
+    </a>
+  </section>
+  
+  <section v-for="c in categories" class="hnav category_screen" v-bind:id="encodeURIComponent(c)" class="hnav">
+    <h1>{{c}}</h1>
+  </section>
+    
+  <section id="checkout" class="hnav">
+    <h1>Cart</h1>
+    <a href="#menu">Menu</a>
+  </section>
+</div>
+</body>
+</html>
