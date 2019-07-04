@@ -9,6 +9,7 @@
   <script src="/codefiles/js/hnav.js"></script>
   <script src="/codefiles/js/papaparse.min.js"></script>
   <script src="/codefiles/js/vue.min.js"></script>
+  <script src="/codefiles/js/settings.js"></script>
   <script src="/codefiles/js/main.js"></script>
 </head>
 <body onload="init()">
@@ -43,6 +44,45 @@
   
   <section v-for="c in categories" class="hnav category_screen" v-bind:id="encodeURIComponent(c)" class="hnav">
     <h1>{{c}}</h1>
+    <div class="shopitem" v-for="i in inventory[c]">
+      
+      <img src="/inventory/images/b1.jpg">
+      
+      <span class="name">{{i.Name}}</span>
+      
+      <span class="price">
+        {{settings.currency}}{{i['Unit Price']}}/{{i['Unit']}}
+      </span>
+      
+      <button v-if="i.quantity<1" v-on:click="i.quantity++">
+         Add to Cart
+      </button>   
+      <div class="qctrl" v-else>
+         <span class="icon" v-on:click="i.quantity--">r</span>
+         <span>{{i.quantity}}</span>
+         <span class="icon" v-on:click="i.quantity++">a</span>
+      </div>
+      
+      <span class="instock" v-if="settings.showOutOfStockItems && i['In Stock']=='yes'">
+        In Stock
+      </span>
+      <span class="outofstock" v-if="settings.showOutOfStockItems && i['In Stock']!='yes'">
+        Out of Stock
+      </span>
+      
+      <span class="hidedesc" v-if="i.showDesc" v-on:click="i.showDesc = !i.showDesc">
+        Hide
+      </span>
+      <span class="showdesc" v-else v-on:click="i.showDesc = !i.showDesc">
+        Info
+      </span>
+      
+      <div class="description" v-if="i.showDesc">
+        {{i.Description}}
+      </div>
+      
+      
+    </div>
   </section>
     
   <section id="checkout" class="hnav">

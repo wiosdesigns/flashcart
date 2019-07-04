@@ -29,6 +29,8 @@ function items_loaded(){
       inventory[items[i].Category] = [];
     }
     items[i].quantity = 0;
+    items[i]['In Stock'] = items[i]['In Stock'].toLowerCase();
+    items[i].showDesc = false;
     inventory[items[i].Category].push(items[i])
   }
   
@@ -37,6 +39,7 @@ function items_loaded(){
     data: {
       categories: categories,
       inventory: inventory,
+      settings: settings
     }
   });
   

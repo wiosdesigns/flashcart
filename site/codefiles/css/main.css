@@ -108,3 +108,77 @@ a.btn{
 #menu a.btn{
   margin: 2mm;
 }
+.category_screen{
+  text-align: center;
+}
+.category_screen>h1{
+  color: var(--theme);
+}
+.shopitem{
+  display: grid;
+  background: var(--bg2);
+  margin: 5mm 0mm;
+  border-radius: 2mm;
+  grid-template-columns: 35vw 1fr auto;
+  grid-template-rows: 1fr auto auto auto;
+  text-align: left;
+  box-shadow: 0 0.25mm 1  mm rgba(0,0,0,0.3);
+}
+.shopitem img{
+  grid-row: 1/4;
+  width: 100%;
+  height: auto;
+  border-radius: 2mm;
+}
+.shopitem span,.shopitem div{
+  display: inline-block;
+}
+.shopitem span.name{
+  grid-column: span 2;
+  padding: 2mm;
+  font-size: 110%; 
+}
+.shopitem span.price{
+  color: var(--theme);
+  padding: 1mm 2mm;
+}
+.shopitem button{
+  background: var(--theme);
+  font-family: font1;
+  font-size: 4mm;
+  padding: 0.25mm 4mm;
+  margin: 0.75mm 2mm;
+  border-radius: 10mm;
+  color: var(--bg2);
+  border: none;
+  outline: none;
+}
+.shopitem div.qctrl{
+  align-self: center;
+}
+.shopitem .icon{
+  color: var(--theme);
+  font-size: 7mm;
+  vertical-align: -0.75mm;
+  margin: 0 2mm;
+}
+.shopitem span.instock,.shopitem span.outofstock{
+  font-size: 4mm;
+  padding: 1mm 2mm;
+  color: var(--theme);
+}
+.shopitem span.showdesc,.shopitem span.hidedesc{
+  text-align: right;
+  font-size: 4mm;
+  padding: 1mm 6mm;
+  color: var(--theme);
+}
+.shopitem span.outofstock,.shopitem span.hidedesc{
+  color: var(--error);
+}
+
+.shopitem div.description{
+  grid-row: 4/5;
+  grid-column: span 3;
+  padding: 4mm;
+}
