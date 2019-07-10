@@ -2,5 +2,6 @@ let settings = {
   showOutOfStockItems: true,
   showDescription: true,
   currency: '₹',
-  shopPhone: '919538065734'
+  shopphone: '919538065734',
+  shopemail: 'hi@wiosdesigns.xyz'
 };

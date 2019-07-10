@@ -20,6 +20,9 @@
   font-family: icons;
   display: inline-block;
 }
+html{
+  scroll-behavior: smooth;
+}
 body {
   font-family: font1;
   padding: 0px;
@@ -53,7 +56,8 @@ header .icon{
 }
 .hnav{
   padding: 5mm;
-  padding-bottom: 10vh;
+  padding-bottom: 30vh;
+  text-align: center;
 }
 
 h1,h2,h3{
@@ -105,24 +109,25 @@ a.btn{
 #home{
   padding-top: 40mm;
 }
-#menu a.btn{
+#menu a.btn,#shop a.btn{
   margin: 2mm;
 }
 .category_screen{
   text-align: center;
 }
-.category_screen>h1{
+.category_screen>h1,#checkout>h1{
   color: var(--theme);
+  text-align: center;
 }
 .shopitem{
   display: grid;
   background: var(--bg2);
-  margin: 5mm 0mm;
   border-radius: 2mm;
-  grid-template-columns: 35vw 1fr auto;
+  grid-template-columns: 35% auto 1fr;
   grid-template-rows: 1fr auto auto auto;
   text-align: left;
-  box-shadow: 0 0.25mm 1  mm rgba(0,0,0,0.3);
+  margin: 5mm 0mm;
+  box-shadow: 0 0.25mm 1mm rgba(0,0,0,0.3);
 }
 .shopitem img{
   grid-row: 1/4;
@@ -135,8 +140,7 @@ a.btn{
 }
 .shopitem span.name{
   grid-column: span 2;
-  padding: 2mm;
-  font-size: 110%; 
+  padding: 2mm; 
 }
 .shopitem span.price{
   color: var(--theme);
@@ -146,7 +150,7 @@ a.btn{
   background: var(--theme);
   font-family: font1;
   font-size: 4mm;
-  padding: 0.25mm 4mm;
+  padding: 0.10mm 4mm 0.40mm 4mm;
   margin: 0.75mm 2mm;
   border-radius: 10mm;
   color: var(--bg2);
@@ -169,7 +173,7 @@ a.btn{
 }
 .shopitem span.showdesc,.shopitem span.hidedesc{
   text-align: right;
-  font-size: 4mm;
+  font-size: 5mm;
   padding: 1mm 6mm;
   color: var(--theme);
 }
@@ -181,4 +185,66 @@ a.btn{
   grid-row: 4/5;
   grid-column: span 3;
   padding: 4mm;
+}
+
+#footer{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  max-width: 180mm;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  background: var(--theme);
+  color: var(--bg2);
+  padding: 5mm;
+}
+#footer span{
+  font-size: 6mm;
+}
+#footer a{
+  text-decoration: none;
+  display: inline-block;
+  padding: 1.5mm 4mm 0.5mm 4mm;
+  border-radius: 10mm;
+  background: var(--bg2);
+  color: var(--theme);
+  font-size: 4mm;
+}
+#checkout input,#checkout button{
+  border: none;
+  outline: none;
+  display: inline-block;
+  width: 90%;
+  max-width: 7cm;
+  padding: 2mm 5mm;
+  border-radius: 2cm;
+  margin: 2mm 0mm;
+  font-size: 5mm;
+  font-family: font1;
+  text-align: center;
+}
+#checkout button{
+  background: var(--theme);
+  color: var(--bg2);
+}
+
+#home details{
+  background: var(--bg2);
+  padding: 5mm;
+  margin: 5mm 0mm;
+  box-shadow: 0 0.25mm 1mm rgba(0,0,0,0.3);
+  border-radius: 2mm;
+}
+#home summary{
+  color: var(--theme);
+  font-size: 110%;
+  outline: none;
+  border: none;
+}
+details[open] summary{
+  border: none;
+  outline: none;
+}
+details a{
+  color: var(--theme);
 }

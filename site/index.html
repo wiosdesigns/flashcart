@@ -27,16 +27,101 @@
     </a>
   </header>
   <section id="home" class="hnav" hnav:start>
-    <h1>Setup your online shop in a flash!</h1>
-    <a href="#menu" class="btn">Go Shopping</a>
+    <h3>
+      FlashCart is a quick-setup and easy-use 
+      website template for your online shop. 
+      <br>
+      Manage your inventory
+      using familiar spreadsheet software such as MS Excel or Google Sheets.
+      Receive and manage orders via WhatsApp, Email or SMS.
+    </h3>
+    <a href="#shop" class="btn">Try the demo</a>
+    <br><br>
+    <h1>Why FlashCart?</h1>
+    
+    <details>
+      <summary>Zero commissions on your sales</summary>
+      <p>
+        FlashCart is a self-hosted e-commerce solution. 
+        You only pay for your domain name, internet hosting and a one
+        time service charge to a web developer for setting it up for you.
+        <br><br>
+        Unlike the usual e-commerce/food-delivery platforms, you do not have to pay commisions
+        for every sale you accomplish. This will be your website, your rules and your responsibility.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Orders communicated via WhatsApp</summary>
+      <p>
+      When orders are placed, the webpage automatically sends a message via
+      WhatsApp from the customer's phone to your shop's phone. Heads up, this
+      happens with the knowledge of the customer. You as the shop manager can
+      follow up from there regarding payment, delivery and feedback. We believe
+      business is about building relationships, and a messaging platform is 
+      the best suited for that. Email and SMS options are also available.<br><br>
+      If your shop is already forwarding inventory lists to your customers
+      on a regular basis, this template only enhances that experience by
+      providing a nice UI for displaying, updating and picking items, while the rest of your communication
+      with customers remains as it is.
+      </p>
+    </details>
+    
+    <details>
+      <summary>No-login UX</summary>
+      <p>
+      Did you know that 1 out of 3 online shoppers abandon their cart 
+      just because they are forced to create an account and login?
+      <br><br> 
+      Our innovative UI/UX puts the customer in touch with the shop manager 
+      without any account creation or login hassles.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Easy inventory management</summary>
+      <p>
+      Edit your inventory with MS Excel or Google Sheets.
+      Upload just one file to update the store listings. 
+      Everything else is automatically handled.
+      </p>
+    </details>
+    
+    <details>
+      <summary>Quick setup</summary>
+      <p>
+      Flashcart is made by <a href="https://wiosdesigns.xyz">WIOS Designs.</a>
+      We are based out of Bengaluru, India and our developer can drop by 
+      anywhere in or around the city to set this up for you in a matter of hours. The template
+      can be customized with your logo, shop descriptions, inventory and hosted
+      on your shop's own domain name. Even if you aren't based in Bengaluru, 
+      we can set it up for you if you get in touch via Email (flashcart@wiosdesigns.xyz) 
+      or Phone/WhatsApp (+91 9538065734).
+      <br><br>
+      This project is made with Vue.js and is open source, which means, any
+      web developer experienced with Vue.js can set it up for you. If
+      you are a developer, feel free to see the code and use it for 
+      your clients.
+      </p>
+    </details>
+    
   </section>
   
   <section id="menu" class="hnav">
     <h1>Menu</h1>
     <a class="btn" href="#home">Home Page</a>
-    <a class="btn" href="#checkout">Check Out</a>
+    <a class="btn" href="#shop">Shop</a>
+    <a class="btn" v-if="nitems>0" href="#checkout">Check Out</a>
     <br><br>
     <h2>Shop by categories</h2>
+    <a class="btn" v-for="c in categories" v-bind:href="'#'+encodeURIComponent(c)">
+      {{c}}
+    </a>
+  </section>
+  
+  <section id="shop" class="hnav">
+    <h1>Shop</h1>
+    <h3>This only a demo. Items listed here are not for sale.</h3>
     <a class="btn" v-for="c in categories" v-bind:href="'#'+encodeURIComponent(c)">
       {{c}}
     </a>
@@ -50,10 +135,6 @@
       
       <span class="name">{{i.Name}}</span>
       
-      <span class="price">
-        {{settings.currency}}{{i['Unit Price']}}/{{i['Unit']}}
-      </span>
-      
       <button v-if="i.quantity<1" v-on:click="i.quantity++">
          Add to Cart
       </button>   
@@ -62,12 +143,10 @@
          <span>{{i.quantity}}</span>
          <span class="icon" v-on:click="i.quantity++">a</span>
       </div>
+      <span></span>
       
-      <span class="instock" v-if="settings.showOutOfStockItems && i['In Stock']=='yes'">
-        In Stock
-      </span>
-      <span class="outofstock" v-if="settings.showOutOfStockItems && i['In Stock']!='yes'">
-        Out of Stock
+      <span class="price">
+        {{settings.currency}}{{i['Unit Price']}}/{{i['Unit']}}
       </span>
       
       <span class="hidedesc" v-if="i.showDesc" v-on:click="i.showDesc = !i.showDesc">
@@ -85,10 +164,70 @@
     </div>
   </section>
     
-  <section id="checkout" class="hnav">
-    <h1>Cart</h1>
-    <a href="#menu">Menu</a>
+  <section id="checkout" class="hnav" hnav:on="app.cartpage=true;" hnav:off="app.cartpage=false;">
+    <h1>Your Cart</h1>
+    <button onclick="goToOrder()">Review & Place Order</button><br>
+    <div class="cartcat" v-for="c in categories">
+      
+      <div class="shopitem" v-for="i in inventory[c]" v-if="i.quantity>0">
+      
+      <img src="/inventory/images/b1.jpg">
+      
+      <span class="name">{{i.Name}}</span>
+      
+      <button v-if="i.quantity<1" v-on:click="i.quantity++">
+         Add to Cart
+      </button>   
+      <div class="qctrl" v-else>
+         <span class="icon" v-on:click="i.quantity--">r</span>
+         <span>{{i.quantity}}</span>
+         <span class="icon" v-on:click="i.quantity++">a</span>
+      </div>
+      <span></span>
+      
+      <span class="price">
+        {{settings.currency}}{{i['Unit Price']}}/{{i['Unit']}}
+      </span>
+      
+      <span class="hidedesc" v-if="i.showDesc" v-on:click="i.showDesc = !i.showDesc">
+        Hide
+      </span>
+      <span class="showdesc" v-else v-on:click="i.showDesc = !i.showDesc">
+        Info
+      </span>
+      
+      <div class="description" v-if="i.showDesc">
+        {{i.Description}}
+      </div>
+      
+      
+      </div>
+      <br>
+      
+    </div>
+    <div v-if="nitems==0">
+      Your cart is empty
+    </div>
+    <div v-else id="placeorder">
+      <h2>Place order</h2>
+      <input type="text" v-model:value="name" placeholder="(Your Name)"><br>
+      <p>
+        By ordering, your contact information will be shared with us,
+        and we promise not to sell/share your data to any third-parties.
+        <br><br>
+        Note: SMS option works only on Android devices
+      </p>
+      <button v-on:click="orderwa">Order Via WhatsApp</button><br>
+      <button v-on:click="ordersms">Order Via SMS</button><br>
+      <button v-on:click="orderemail">Order Via Email</button><br>
+    </div>
   </section>
+  
+  <div id="footer" v-if="nitems>0 && !cartpage">
+    <span>{{nitems}} item<span v-if="nitems>1">s</span> in cart</span>
+    <a href="#checkout">Checkout</a>
+  </div>
+  
 </div>
 </body>
 </html>
