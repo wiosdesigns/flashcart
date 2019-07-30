@@ -1,7 +1,7 @@
-Name,Image,Category,Unit Price,Unit,In Stock,Description
-Onion,onions.jpg,Veggies,50,kg,Yes,This is only a demo shop. The products listed here are not available for sale.
-Carrot,carrot.jpg,Veggies,30,kg,No,All the content in this shop webpage can be managed with Excel sheets
-Capsicum,capsicum.jpg,Veggies,40,kg,Yes,You may chose to show/hide items that are out of stock
-Orange,orange.jpg,Fruits,100,kg,Yes,"Descriptions for each product appear here with name, and descriptions may be hidden if required"
-Banana,banana.jpg,Fruits,50,kg,No,"The colors, font, etc. can be changed as per your requirements"
-Turmeric powder (100g),turmeric.jpg,Spices,20,packet,Yes,Try editing the sheet
+Name,Image,Category,Unit Price,Unit,In Stock,Featured,Description
+Onion,onions.jpg,Veggies,50,kg,Yes,Yes,This is only a demo shop. The products listed here are not available for sale.
+Carrot,carrot.jpg,Veggies,30,kg,No,No,All the content in this shop webpage can be managed with Excel sheets
+Capsicum,capsicum.jpg,Veggies,40,kg,Yes,No,You may chose to show/hide items that are out of stock
+Orange,orange.jpg,Fruits,100,kg,Yes,Yes,"Descriptions for each product appear here with name, and descriptions may be hidden if required"
+Banana,banana.jpg,Fruits,50,kg,No,No,"The colors, font, etc. can be changed as per your requirements"
+Turmeric powder (100g),turmeric.jpg,Spices,20,packet,Yes,No,Try editing the sheet

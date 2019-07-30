@@ -20,27 +20,45 @@ function items_loaded(){
     items.pop();
   }
   
-  inventory = {};
   categories = [];
   
   for(var i=0;i<items.length;i++){
     if(!categories.includes(items[i].Category)){
       categories.push(items[i].Category);
-      inventory[items[i].Category] = [];
     }
     items[i].quantity = 0;
+    items[i].match = false;
     items[i]['In Stock'] = items[i]['In Stock'].toLowerCase();
-    items[i].showDesc = false;
-    if(items[i]['In Stock']=='yes'){
-      inventory[items[i].Category].push(items[i])
-    }
+    items[i]['Featured'] = items[i]['Featured'].toLowerCase();
   }
+  
+  Vue.component('shop-item',{
+    props: ['name','image','category','unitprice','unit','instock','description','quantity','compact'],
+    template: `
+      <div class="shopitem">
+        <img v-if="!compact" src="/inventory/images/b1.jpg">
+        <span class="name">{{name}}</span>
+        <span class="price">{{$parent.settings.currency}}{{unitprice}}/{{unit}}</span>
+        <button v-on:click="$emit('plus')" v-if="instock=='yes' && quantity<1">Add to cart</button>
+        <div class="qctrl" v-else-if="instock=='yes' && quantity>0">
+          <span class="icon" v-on:click="$emit('minus')">r</span>
+          <span>{{quantity}}</span>
+          <span class="icon" v-on:click="$emit('plus')">a</span>
+        </div>
+        <span v-else class="outofstock">Out of Stock</span>
+        <details v-if="!compact">
+          <summary>Description</summary>
+          {{description}}
+        </details>
+      </div>
+    `
+  });
   
   app = new Vue({
     el: "#app",
     data: {
       categories: categories,
-      inventory: inventory,
+      items: items,
       settings: settings,
       cartpage: false,
       name: '',
@@ -48,32 +66,23 @@ function items_loaded(){
     computed: {
       carttotal: function(){
         var t = 0;
-        for(var c=0;c<this.categories.length;c++){
-          var ca = this.inventory[this.categories[c]];
-          for(var i=0;i<ca.length;i++){
-            t += ca[i].quantity*ca[i]['Unit Price'];
-          }
+        for(var i=0;i<this.items.length;c++){
+          t += this.items[i].quantity*this.items[i]['Unit Price'];
         }
         return t;
       },
       nitems: function(){
         var n = 0;
-        for(var c=0;c<this.categories.length;c++){
-          var ca = this.inventory[this.categories[c]];
-          for(var i=0;i<ca.length;i++){
-            if(ca[i].quantity>0) n++;
-          }
+        for(var i=0;i<this.items.length;i++){
+          if(this.items[i].quantity>0) n++;
         }
         return n;
       },
       ordertext: function(){
         var s = `${app.name} would like to order the following items: \n\n`;
-        for(var c=0;c<this.categories.length;c++){
-          var ca = this.inventory[this.categories[c]];
-          for(var i=0;i<ca.length;i++){
-            if(ca[i].quantity>0){
-              s += `\n\n${ca[i].Name}\nQuantity: ${ca[i].quantity}`
-            }
+        for(var i=0;i<this.items.length;i++){
+          if(this.items[i].quantity>0){
+            s += `\n\n${this.items[i].Name}\nQuantity: ${this.items[i].quantity}`
           }
         }
         return s
@@ -89,10 +98,22 @@ function items_loaded(){
       },
       orderemail: function(){
         location.href = `mailto:${app.settings.shopemail}?subject=Order%20from%20${name}&body=${encodeURIComponent(app.ordertext)}`;
+      },
+      search: function(){
+        var query = document.querySelector('#searchquery').value;
+        query = query.trim().toLowerCase();
+        for(var i=0;i<app.items.length;i++){
+          var target = app.items[i].Name.toLowerCase();
+          if(target.includes(query)){
+            app.items[i].match = true;
+          }
+          else{
+            app.items[i].match = false;
+          }
+        }
       }
     }
   });
-  
   hnav.init();
 }
 

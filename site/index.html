@@ -1,6 +1,6 @@
 <html>
 <head>
-  <title>Flash Cart</title>
+  <title>FlashCart</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#1d201f">
   <meta charset="utf-8">
@@ -55,12 +55,12 @@
       <summary>Mobile first UI Design</summary>
       <p>
         Why open your PC and wait for it to boot just to order
-        something online? That is you have a PC in the first place.        
+        something online? That is if you have a PC in the first place.        
       </p>
     </details>
     
     <details>
-      <summary>Orders communicated via WhatsApp</summary>
+      <summary>Orders received via WhatsApp</summary>
       <p>
       When orders are placed, the webpage automatically sends a message via
       WhatsApp from the customer's phone to your shop's phone. Heads up, this
@@ -81,7 +81,7 @@
       Did you know that 1 out of 3 online shoppers abandon their cart 
       just because they are forced to create an account and login?
       <br><br> 
-      Our innovative UI/UX puts the customer in touch with the shop manager 
+      Our innovative UX puts the customer in touch with the shop manager 
       without any account creation or login hassles.
       </p>
     </details>
@@ -113,6 +113,23 @@
       </p>
     </details>
     
+    <br><br>
+    <h1>Featured items</h1>
+    
+    <shop-item 
+      v-for="i in items" 
+      v-if="i.Featured=='yes'" 
+      v-bind:name="i.Name"
+      v-bind:description="i.Description"
+      v-bind:unitprice="i['Unit Price']"
+      v-bind:unit="i['Unit']"
+      v-bind:instock="i['In Stock']"
+      v-bind:quantity="i.quantity"
+      v-on:plus="i.quantity++"
+      v-on:minus="if(i.quantity>0) i.quantity--"
+      >
+    </shop-item>
+    
   </section>
   
   <section id="menu" class="hnav">
@@ -130,89 +147,69 @@
   <section id="shop" class="hnav">
     <h1>Shop</h1>
     <h3>This only a demo. Items listed here are not for sale.</h3>
+    <h2>Shop by categories</h2>
     <a class="btn" v-for="c in categories" v-bind:href="'#'+encodeURIComponent(c)">
       {{c}}
     </a>
+    <br><br>
+    <h2>Or search for items</h2>
+    <div class="searchbox">
+      <input id="searchquery" type="text">
+      <span class="icon" v-on:click="search">s</span>
+    </div>
+    <shop-item 
+      v-for="i in items" 
+      v-if="i.match" 
+      v-bind:name="i.Name"
+      v-bind:image="i.Image"
+      v-bind:description="i.Description"
+      v-bind:unitprice="i['Unit Price']"
+      v-bind:unit="i['Unit']"
+      v-bind:instock="i['In Stock']"
+      v-bind:quantity="i.quantity"
+      v-on:plus="i.quantity++"
+      v-on:minus="if(i.quantity>0) i.quantity--"
+      >
+    </shop-item>
   </section>
   
   <section v-for="c in categories" class="hnav category_screen" v-bind:id="encodeURIComponent(c)" class="hnav">
     <h1>{{c}}</h1>
-    <div class="shopitem" v-for="i in inventory[c]">
-      
-      <img src="/inventory/images/b1.jpg">
-      
-      <span class="name">{{i.Name}}</span>
-      
-      <button v-if="i.quantity<1" v-on:click="i.quantity++">
-         Add to Cart
-      </button>   
-      <div class="qctrl" v-else>
-         <span class="icon" v-on:click="i.quantity--">r</span>
-         <span>{{i.quantity}}</span>
-         <span class="icon" v-on:click="i.quantity++">a</span>
-      </div>
-      <span></span>
-      
-      <span class="price">
-        {{settings.currency}}{{i['Unit Price']}}/{{i['Unit']}}
-      </span>
-      
-      <span class="hidedesc" v-if="i.showDesc" v-on:click="i.showDesc = !i.showDesc">
-        Hide
-      </span>
-      <span class="showdesc" v-else v-on:click="i.showDesc = !i.showDesc">
-        Info
-      </span>
-      
-      <div class="description" v-if="i.showDesc">
-        {{i.Description}}
-      </div>
-      
-      
-    </div>
+    <shop-item 
+      v-for="i in items" 
+      v-if="i.Category==c" 
+      v-bind:name="i.Name"
+      v-bind:image="i.Image"
+      v-bind:description="i.Description"
+      v-bind:unitprice="i['Unit Price']"
+      v-bind:unit="i['Unit']"
+      v-bind:instock="i['In Stock']"
+      v-bind:quantity="i.quantity"
+      v-on:plus="i.quantity++"
+      v-on:minus="if(i.quantity>0) i.quantity--"
+      >
+    </shop-item>
   </section>
     
   <section id="checkout" class="hnav" hnav:on="app.cartpage=true;" hnav:off="app.cartpage=false;">
     <h1>Your Cart</h1>
-    <button onclick="goToOrder()">Review & Place Order</button><br>
-    <div class="cartcat" v-for="c in categories">
+    <button v-if="nitems!=0" onclick="goToOrder()">Review & Place Order</button><br>
       
-      <div class="shopitem" v-for="i in inventory[c]" v-if="i.quantity>0">
-      
-      <img src="/inventory/images/b1.jpg">
-      
-      <span class="name">{{i.Name}}</span>
-      
-      <button v-if="i.quantity<1" v-on:click="i.quantity++">
-         Add to Cart
-      </button>   
-      <div class="qctrl" v-else>
-         <span class="icon" v-on:click="i.quantity--">r</span>
-         <span>{{i.quantity}}</span>
-         <span class="icon" v-on:click="i.quantity++">a</span>
-      </div>
-      <span></span>
-      
-      <span class="price">
-        {{settings.currency}}{{i['Unit Price']}}/{{i['Unit']}}
-      </span>
-      
-      <span class="hidedesc" v-if="i.showDesc" v-on:click="i.showDesc = !i.showDesc">
-        Hide
-      </span>
-      <span class="showdesc" v-else v-on:click="i.showDesc = !i.showDesc">
-        Info
-      </span>
-      
-      <div class="description" v-if="i.showDesc">
-        {{i.Description}}
-      </div>
-      
-      
-      </div>
-      <br>
-      
-    </div>
+    <shop-item 
+      v-for="i in items" 
+      v-if="i.quantity>0" 
+      v-bind:name="i.Name"
+      v-bind:description="i.Description"
+      v-bind:unitprice="i['Unit Price']"
+      v-bind:unit="i['Unit']"
+      v-bind:instock="i['In Stock']"
+      v-bind:quantity="i.quantity"
+      v-on:plus="i.quantity++"
+      v-on:minus="if(i.quantity>0) i.quantity--"
+      v-bind:compact="true"
+      >
+    </shop-item>
+    
     <div v-if="nitems==0">
       Your cart is empty
     </div>

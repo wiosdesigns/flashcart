@@ -47,6 +47,7 @@ hnav.change = function(){
       eval(newpage.getAttribute('hnav:on'));
     }
     hnav.page = hash;
+    window.scrollTo(0,0);
 
   }
 }
