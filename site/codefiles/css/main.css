@@ -264,12 +264,13 @@ a.btn{
   font-family: font1;
   font-size: inherit;
 }
-#shop .searchbox span.icon{
+#shop .searchbox input.icon{
   display: inline-block;
   background: var(--theme);
   color: var(--bg2);
   padding: 0mm;
   font-size: 10mm;
+  font-family: icons;
   border-radius: 10mm;
   border: 2mm solid var(--theme);
 }

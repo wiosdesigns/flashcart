@@ -147,17 +147,10 @@
   <section id="shop" class="hnav">
     <h1>Shop</h1>
     <h3>This only a demo. Items listed here are not for sale.</h3>
-    <h2>Shop by categories</h2>
-    <a class="btn" v-for="c in categories" v-bind:href="'#'+encodeURIComponent(c)">
-      {{c}}
-    </a>
-    <br><br>
-    <h2>Or search for items</h2>
-    <div class="searchbox">
-      <input id="searchquery" type="text">
-      <span class="icon" v-on:click="search">s</span>
-    </div>
-    <br>
+    <form class="searchbox" v-on:submit="search" action="javascript:void(0);">
+      <input id="searchquery" type="text" placeholder="Search for items">
+      <input class="icon" type="submit" value="s">
+    </form>
     <p v-if="!matches">No items matched your search</p>
     <shop-item 
       v-for="i in items" 
@@ -173,6 +166,11 @@
       v-on:minus="if(i.quantity>0) i.quantity--"
       >
     </shop-item>
+    <h2>Shop by categories</h2>
+    <a class="btn" v-for="c in categories" v-bind:href="'#'+encodeURIComponent(c)">
+      {{c}}
+    </a>
+    
   </section>
   
   <section v-for="c in categories" class="hnav category_screen" v-bind:id="encodeURIComponent(c)" class="hnav">
