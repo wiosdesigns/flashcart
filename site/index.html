@@ -147,7 +147,7 @@
   <section id="shop" class="hnav">
     <h1>Shop</h1>
     <h3>This only a demo. Items listed here are not for sale.</h3>
-    <form class="searchbox" v-on:submit="search" action="javascript:void(0);">
+    <form class="searchbox" v-on:submit="search" action="javascript:document.querySelector('#searchquery').blur()">
       <input id="searchquery" type="text" placeholder="Search for items">
       <input class="icon" type="submit" value="s">
     </form>
