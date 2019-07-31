@@ -157,6 +157,8 @@
       <input id="searchquery" type="text">
       <span class="icon" v-on:click="search">s</span>
     </div>
+    <br>
+    <p v-if="!matches">No items matched your search</p>
     <shop-item 
       v-for="i in items" 
       v-if="i.match" 
@@ -214,6 +216,7 @@
       Your cart is empty
     </div>
     <div v-else id="placeorder">
+      <span>Total: {{settings.currency}}{{carttotal}}</span>
       <h2>Place order</h2>
       <input type="text" v-model:value="name" placeholder="(Your Name)"><br>
       <p>
@@ -234,5 +237,23 @@
   </div>
   
 </div>
+<script type="text/x-template" id="shop-item-template">
+  <div class="shopitem">
+    <img v-if="!compact" src="/inventory/images/b1.jpg">
+    <span class="name">{{name}}</span>
+    <span class="price">{{$parent.settings.currency}}{{unitprice}}/{{unit}}</span>
+    <button v-on:click="$emit('plus')" v-if="instock=='yes' && quantity<1">Add to cart</button>
+    <div class="qctrl" v-else-if="instock=='yes' && quantity>0">
+      <span class="icon" v-on:click="$emit('minus')">r</span>
+      <span>{{quantity}}</span>
+      <span class="icon" v-on:click="$emit('plus')">a</span>
+    </div>
+    <span v-else class="outofstock">Out of Stock</span>
+    <details v-if="!compact">
+      <summary>Description</summary>
+      {{description}}
+    </details>
+  </div>
+</script>
 </body>
 </html>

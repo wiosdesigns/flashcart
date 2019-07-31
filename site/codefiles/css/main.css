@@ -231,6 +231,15 @@ a.btn{
   font-family: font1;
   text-align: center;
 }
+#placeorder>span{
+  background: var(--theme);
+  color: var(--bg2);
+  width: 100%;
+  display: inline-block;
+  padding: 2mm;
+  border-radius: 1mm;
+  font-size: 125%;
+}
 #checkout button{
   background: var(--theme);
   color: var(--bg2);
@@ -259,9 +268,10 @@ a.btn{
   display: inline-block;
   background: var(--theme);
   color: var(--bg2);
-  padding: 2mm;
+  padding: 0mm;
   font-size: 10mm;
   border-radius: 10mm;
+  border: 2mm solid var(--theme);
 }
 
 
