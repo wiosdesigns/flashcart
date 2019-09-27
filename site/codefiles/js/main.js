@@ -107,4 +107,13 @@ function goToOrder(){
   document.getElementById('placeorder').scrollIntoView();
 }
 
+function menuclick(){
+  if(hnav.page=="menu"){
+   window.history.back();
+  }
+  else{
+    location.href = "#menu";
+  }
+}
+
 
