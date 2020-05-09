@@ -249,7 +249,7 @@
 </div>
 <script type="text/x-template" id="shop-item-template">
   <div class="shopitem">
-    <img v-if="!compact" src="/inventory/images/b1.jpg">
+    <img v-if="!compact" src="/inventory/images/onion.jpg">
     <span class="name">{{name}}</span>
     <span class="price">{{$parent.settings.currency}}{{unitprice}}/{{unit}}</span>
     <button v-on:click="$emit('plus')" v-if="instock=='yes' && quantity<1">Add to cart</button>
